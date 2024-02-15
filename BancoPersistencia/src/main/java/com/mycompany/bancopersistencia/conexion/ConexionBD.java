@@ -19,6 +19,7 @@ public class ConexionBD implements IConexionBD {
     private final String cadenaConexion;
     private final String usuario;
     private final String contrasenia;
+    
     private static final Logger LOG = Logger.getLogger(ConexionBD.class.getName());
 
     public ConexionBD(String cadenaConexion, String usuario, String contrasenia) {
@@ -27,13 +28,14 @@ public class ConexionBD implements IConexionBD {
         this.contrasenia = contrasenia;
     }
 
-
+    @Override
     public Connection crearConexion() throws SQLException {
-        Connection c = DriverManager.getConnection(cadenaConexion, usuario, contrasenia);
+        Connection c = DriverManager.getConnection(cadenaConexion, usuario, 
+                contrasenia);
+        
         LOG.log(Level.INFO, "Conexion establecida", cadenaConexion);
+        
         return c;
-        
-        
     }
     
     
