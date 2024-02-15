@@ -4,7 +4,6 @@
  */
 package com.mycompany.bancopersistencia.conexion;
 
-import com.mycompany.ecoactivistaConexion.IConexionBD;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -13,9 +12,9 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Laboratorios
+ * @author caarl
  */
-public class ConexionBD implements IConexionBD{
+public class ConexionBD implements IConexionBD {
     
     private final String cadenaConexion;
     private final String usuario;
