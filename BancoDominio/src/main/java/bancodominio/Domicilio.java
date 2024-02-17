@@ -9,16 +9,33 @@ package bancodominio;
  * @author caarl
  */
 public class Domicilio {
-    private long id_domicilio;
+    // Clase POJO de Domicilios
+    private int id_domicilio;
     private String calle;
     private String colonia;
     private String numero_exterior;
 
+    public Domicilio(){
+    }
+
+    public Domicilio(String calle, String colonia, String numero_exterior) {
+        this.calle = calle;
+        this.colonia = colonia;
+        this.numero_exterior = numero_exterior;
+    }
+
+    public Domicilio(int id_domicilio, String calle, String colonia, String numero_exterior) {
+        this.id_domicilio = id_domicilio;
+        this.calle = calle;
+        this.colonia = colonia;
+        this.numero_exterior = numero_exterior;
+    }
+    
     public long getId_domicilio() {
         return id_domicilio;
     }
 
-    public void setId_domicilio(long id_domicilio) {
+    public void setId_domicilio(int id_domicilio) {
         this.id_domicilio = id_domicilio;
     }
 
