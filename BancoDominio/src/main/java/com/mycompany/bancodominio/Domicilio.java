@@ -8,7 +8,7 @@ package com.mycompany.bancodominio;
  *
  * @author caarl
  */
-public class Domicilios {
+public class Domicilio {
     private long id_domicilio;
     private String calle;
     private String colonia;

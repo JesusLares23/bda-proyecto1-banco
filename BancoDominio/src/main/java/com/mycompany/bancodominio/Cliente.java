@@ -10,7 +10,7 @@ import java.util.Date;
  *
  * @author caarl
  */
-public class Clientes {
+public class Cliente {
      private long id_cliente;
     private String nombres;
     private String apellido_paterno;
