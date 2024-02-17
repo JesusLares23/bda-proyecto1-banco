@@ -9,18 +9,40 @@ package bancodominio;
  * @author caarl
  */
 public class Cliente {
-    private long id_cliente;
+    private int id_cliente;
     private String nombres;
     private String apellido_paterno;
     private String apellido_materno;
     private String fecha_nacimiento;
-    private long id_domicilio;
+    private int id_domicilio;
 
-    public long getId_cliente() {
+    public Cliente() {
+    }
+
+    public Cliente(String nombres, String apellido_paterno, String apellido_materno, 
+            String fecha_nacimiento, int id_domicilio) {
+        this.nombres = nombres;
+        this.apellido_paterno = apellido_paterno;
+        this.apellido_materno = apellido_materno;
+        this.fecha_nacimiento = fecha_nacimiento;
+        this.id_domicilio = id_domicilio;
+    }
+
+    public Cliente(int id_cliente, String nombres, String apellido_paterno, 
+            String apellido_materno, String fecha_nacimiento, int id_domicilio) {
+        this.id_cliente = id_cliente;
+        this.nombres = nombres;
+        this.apellido_paterno = apellido_paterno;
+        this.apellido_materno = apellido_materno;
+        this.fecha_nacimiento = fecha_nacimiento;
+        this.id_domicilio = id_domicilio;
+    }
+    
+    public int getId_cliente() {
         return id_cliente;
     }
 
-    public void setId_cliente(long id_cliente) {
+    public void setId_cliente(int id_cliente) {
         this.id_cliente = id_cliente;
     }
 
@@ -56,11 +78,11 @@ public class Cliente {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
-    public long getId_domicilio() {
+    public int getId_domicilio() {
         return id_domicilio;
     }
 
-    public void setId_domicilio(long id_domicilio) {
+    public void setId_domicilio(int id_domicilio) {
         this.id_domicilio = id_domicilio;
     }
     
