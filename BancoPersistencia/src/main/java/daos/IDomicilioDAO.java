@@ -1,7 +1,7 @@
 
 package daos;
 
-import com.mycompany.bancopersistencia.exception.BancoPersistenciaException;
+import excepciones.PersistenciaException;
 
 /**
  *
@@ -9,5 +9,5 @@ import com.mycompany.bancopersistencia.exception.BancoPersistenciaException;
  */
 public interface IDomicilioDAO {
     
-    public Domicilio agregarDomicilio(Domicilio domicilio) throws BancoPersistenciaException;
+    public Domicilio agregarDomicilio(Domicilio domicilio) throws PersistenciaException;
 }
