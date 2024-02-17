@@ -3,6 +3,7 @@ package daos;
 
 import bancodominio.Domicilio;
 import conexion.IConexionBD;
+import dtos.DomicilioDTO;
 import excepciones.PersistenciaException;
 import java.sql.Connection;
 import java.sql.Statement;
@@ -29,8 +30,7 @@ public class DomicilioDAO implements IDomicilioDAO {
     }
 
     @Override
-    // Cambio a DomicilioDTO
-    public Domicilio agregarDomicilio(Domicilio domicilio) throws PersistenciaException {
+    public Domicilio agregarDomicilio(DomicilioDTO domicilio) throws PersistenciaException {
         String sentenciaSQL = "INSERT INTO Domicilios (calle, colonia, numero_exterior) "
                 + "VALUES (?,?,?)";
         
