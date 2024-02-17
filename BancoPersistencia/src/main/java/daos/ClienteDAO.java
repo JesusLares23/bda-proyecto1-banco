@@ -3,6 +3,7 @@ package daos;
 
 import bancodominio.Cliente;
 import conexion.IConexionBD;
+import dtos.ClienteDTO;
 import excepciones.PersistenciaException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,7 +30,7 @@ public class ClienteDAO implements IClienteDAO {
     }
     
     @Override
-    public Cliente agregarCliente(Cliente cliente) throws PersistenciaException {
+    public Cliente agregarCliente(ClienteDTO cliente) throws PersistenciaException {
         String sentenciaSQL = "INSERT INTO Clientes (nombres, apellido_paterno, "
                 + "apellido_materno, fecha_nacimiento, id_domicilio) "
                 + "VALUES (?,?,?,?,?)";

@@ -2,6 +2,7 @@
 package daos;
 
 import bancodominio.Cliente;
+import dtos.ClienteDTO;
 import excepciones.PersistenciaException;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  */
 public interface IClienteDAO {
     // Cambiar Cliente a ClienteDTO
-    public Cliente agregarCliente(Cliente cliente) throws PersistenciaException;
+    public Cliente agregarCliente(ClienteDTO cliente) throws PersistenciaException;
     public Cliente consultarClientePorID(int id) throws PersistenciaException;
     public List<Cliente> consultarTodosClientes() throws PersistenciaException;
 }
