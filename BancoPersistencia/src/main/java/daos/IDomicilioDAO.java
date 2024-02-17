@@ -1,6 +1,7 @@
 
 package daos;
 
+import bancodominio.Domicilio;
 import excepciones.PersistenciaException;
 
 /**

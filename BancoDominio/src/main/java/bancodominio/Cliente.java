@@ -4,18 +4,16 @@
  */
 package bancodominio;
 
-import java.util.Date;
-
 /**
  *
  * @author caarl
  */
 public class Cliente {
-     private long id_cliente;
+    private long id_cliente;
     private String nombres;
     private String apellido_paterno;
     private String apellido_materno;
-    private Date fecha_nacimiento;
+    private String fecha_nacimiento;
     private long id_domicilio;
 
     public long getId_cliente() {
@@ -50,11 +48,11 @@ public class Cliente {
         this.apellido_materno = apellido_materno;
     }
 
-    public Date getFecha_nacimiento() {
+    public String getFecha_nacimiento() {
         return fecha_nacimiento;
     }
 
-    public void setFecha_nacimiento(Date fecha_nacimiento) {
+    public void setFecha_nacimiento(String fecha_nacimiento) {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
