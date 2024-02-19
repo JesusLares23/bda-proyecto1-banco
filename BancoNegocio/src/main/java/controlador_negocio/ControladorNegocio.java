@@ -3,6 +3,7 @@ package controlador_negocio;
 
 import bancodominio.Cliente;
 import bancodominio.Domicilio;
+import controladores.ControladorPersistencia;
 import controladores.IControladorPersistencia;
 import dtos.ClienteDTO;
 import dtos.DomicilioDTO;
@@ -15,6 +16,10 @@ import java.util.List;
  */
 public class ControladorNegocio {
     private IControladorPersistencia controlador;
+    
+    public ControladorNegocio() {
+        ControladorPersistencia controlador = new ControladorPersistencia();
+    }
     
     public Domicilio agregarDomicilio(DomicilioDTO domicilio) throws PersistenciaException {
         Domicilio domicilioAgregado = this.controlador.agregarDomicilio(domicilio);
