@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -64,7 +65,7 @@ public class CuentaDAO implements ICuentaDAO {
             return cuentaNueva;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "No se agrego con exito la cuenta", e);
-            throw new PersistenciaException("No se pudo guardar el cliente", e);
+            throw new PersistenciaException("No se pudo guardar la cuenta", e);
         }
     }
 
@@ -92,8 +93,8 @@ public class CuentaDAO implements ICuentaDAO {
             return consultarCuentaPorID(registrosModificados);
             
         } catch (Exception e) {
-            LOG.log(Level.SEVERE, "No se pudo actualizar el cliente", e);
-            throw new PersistenciaException("No se pudo actualizar el cliente ", e);
+            LOG.log(Level.SEVERE, "No se pudo actualizar la cuenta", e);
+            throw new PersistenciaException("No se pudo actualizar la cuenta", e);
         }
     }
 
@@ -111,24 +112,53 @@ public class CuentaDAO implements ICuentaDAO {
             resultado.next();
             
             Cuenta cuentaConsultada = new Cuenta(
-                    resultado.getInt("id_cliente"),
-                    resultado.getString(2),
+                    resultado.getInt("id_cuenta"),
+                    resultado.getInt(2),
                     resultado.getString(3),
-                    resultado.getString(4),
+                    resultado.getFloat(4),
                     resultado.getString(5),
                     resultado.getInt(6)
             );
             
-            return clienteConsultado;
+            return cuentaConsultada;
             
         } catch (SQLException e) {
-            LOG.log(Level.SEVERE, "No se encontro el cliente", e);
-            throw new PersistenciaException("No se encontro el cliente", e);
+            LOG.log(Level.SEVERE, "No se encontro la cuenta", e);
+            throw new PersistenciaException("No se encontro la cuenta", e);
         }
     }
 
     @Override
     public List<Cuenta> consultarTodosCuentas() throws PersistenciaException {
+        String sentenciaSQL = "SELECT * FROM Cuentas";
+        List<Cuenta> listaCuentas = new ArrayList<>();
+        
+        try (
+                Connection conexion = this.conexionBD.crearConexion();
+                PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL);
+                ) {
+            
+            ResultSet resultado = comandoSQL.executeQuery();
+            while(resultado.next()) {
+                int id_cuenta = resultado.getInt("id_cuenta");
+                int num_cuenta = resultado.getInt("numero_cuenta");
+                String fecha_apertura = resultado.getString("fecha_apertura");
+                float saldo = resultado.getFloat("saldo");
+                String estado = resultado.getString("estado");
+                int id_cliente = resultado.getInt("id_cliente");
+                Cuenta cuenta = new Cuenta(id_cuenta, num_cuenta, fecha_apertura, saldo, estado, 
+                        id_cliente);
+                listaCuentas.add(cuenta); 
+            }
+            LOG.log(Level.INFO, "Se encontraron {0} cuentas ", 
+                    listaCuentas.size());
+            
+            return listaCuentas;
+            
+        } catch (SQLException e) {
+            LOG.log(Level.SEVERE, "No se encontraron cuentas", e);
+            throw new PersistenciaException("No se encontraron cuentas", e);
+        }
     }
     
 }

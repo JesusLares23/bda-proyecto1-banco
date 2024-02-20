@@ -24,9 +24,9 @@ public class RegistroClienteFrm extends javax.swing.JFrame {
         controladorNegocio = new ControladorNegocio();
     }
 
-    private Domicilio obtenerDatosConID() {
-        int id_domicilio = Integer.parseInt()
-    }
+//    private Domicilio obtenerDatosConID() {
+//        int id_domicilio = Integer.parseInt();
+//    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -77,6 +77,11 @@ public class RegistroClienteFrm extends javax.swing.JFrame {
         });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -143,8 +148,15 @@ public class RegistroClienteFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombresActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        DomicilioDTO domicilio = 
     }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        bancoAdmin bancoAdmin = new bancoAdmin();
+        // Haces visible RegistrarCuentaFrm
+        bancoAdmin.setVisible(true);
+        // Ocultas el frame principal
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
