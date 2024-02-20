@@ -71,6 +71,33 @@ public class ClienteDAO implements IClienteDAO {
     }
 
     @Override
+    public Cliente actualizarCliente(Cliente cliente) throws PersistenciaException {
+        String sentenciaSQL = "UPDATE CLIENTES SET nombres = ?, apellido_paterno = ?, "
+                + "apellido_materno = ?, fecha_nacimiento = ?, id_domicilio = ? "
+                + "WHERE id_cliente = ?";
+
+        try (
+                Connection conexion = this.conexionBD.crearConexion();
+                PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL);
+                ) {
+            comandoSQL.setString(1, cliente.getNombres());
+            comandoSQL.setString(2, cliente.getApellido_paterno());
+            comandoSQL.setString(3, cliente.getApellido_materno());
+            comandoSQL.setInt(4, cliente.getId_domicilio());
+            comandoSQL.setInt(5, cliente.getId_cliente());
+            
+            int registrosModificados = comandoSQL.executeUpdate();
+            LOG.log(Level.INFO, "Se actualizó con éxito {0} ", registrosModificados);
+            
+            return consultarClientePorID(cliente.getId_cliente());
+            
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "No se pudo actualizar el cliente", e);
+            throw new PersistenciaException("No se pudo actualizar el cliente ", e);
+        }
+    }    
+    
+    @Override
     public Cliente consultarClientePorID(int id) throws PersistenciaException {
         String sentenciaSQL = "SELECT * FROM Clientes WHERE id_cliente = ?";
         
@@ -133,4 +160,5 @@ public class ClienteDAO implements IClienteDAO {
             throw new PersistenciaException("No se encontraron clientes", e);
         }
     }
+
 }
