@@ -8,7 +8,9 @@ import excepciones.PersistenciaException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -64,19 +66,73 @@ public class RetiroDAO implements IRetiroDAO {
             
             return retiroNuevo;
         } catch (Exception e) {
-            LOG.log(Level.SEVERE, "No se agrego con exito la tetiro", e);
-            throw new PersistenciaException("No se pudo guardar la tetiro", e);
+            LOG.log(Level.SEVERE, "No se agrego con exito el tetiro", e);
+            throw new PersistenciaException("No se pudo guardar el tetiro", e);
         }
     }
 
     @Override
     public RetiroSinCuenta consultarRetiroPorID(int id) throws PersistenciaException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sentenciaSQL = "SELECT * FROM Retiros WHERE id_retiro = ?";
+        
+        try (
+                Connection conexion = this.conexionBD.crearConexion();
+                PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL);
+                ) {
+            comandoSQL.setInt(1, id);
+            
+            ResultSet resultado = comandoSQL.executeQuery();
+            resultado.next();
+            
+            RetiroSinCuenta retiroConsultado = new RetiroSinCuenta(
+                    resultado.getInt("id_retiro"),
+                    resultado.getInt(2),
+                    resultado.getString(3),
+                    resultado.getFloat(4),
+                    resultado.getString(5),
+                    resultado.getBoolean(6)
+            );
+            
+            return retiroConsultado;
+            
+        } catch (SQLException e) {
+            LOG.log(Level.SEVERE, "No se encontro el retiro", e);
+            throw new PersistenciaException("No se encontro el retiro", e);
+        }
     }
 
     @Override
     public List<RetiroSinCuenta> consultarTodosRetiros() throws PersistenciaException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sentenciaSQL = "SELECT * FROM Retiros";
+        List<RetiroSinCuenta> listaRetiros = new ArrayList<>();
+        
+        try (
+                Connection conexion = this.conexionBD.crearConexion();
+                PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL);
+                ) {
+            
+            ResultSet resultado = comandoSQL.executeQuery();
+            while(resultado.next()) {
+                int idRetiro = resultado.getInt("id_retiro");
+                int cuentaOrigen = resultado.getInt("id_cuenta_orgien");
+                int folio = resultado.getInt("folio");
+                String contra = resultado.getString("contrasena");
+                float monto = resultado.getFloat("monto");
+                String fecha = resultado.getString("fecha");
+                boolean cobrado = resultado.getBoolean("cobrado");
+                RetiroSinCuenta retiroSinCuenta = new RetiroSinCuenta(idRetiro, 
+                        cuentaOrigen, folio, contra, monto, fecha, cobrado);
+                listaRetiros.add(retiroSinCuenta); 
+            }
+            LOG.log(Level.INFO, "Se encontraron {0} transferencias ", 
+                    listaRetiros.size());
+            
+            return listaRetiros;
+            
+        } catch (SQLException e) {
+            LOG.log(Level.SEVERE, "No se encontraron retiros", e);
+            throw new PersistenciaException("No se encontraron retiros", e);
+        }
     }
     
 }

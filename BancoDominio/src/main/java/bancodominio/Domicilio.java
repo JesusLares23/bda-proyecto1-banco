@@ -28,7 +28,7 @@ public class Domicilio {
         this.numero_exterior = numero_exterior;
     }
     
-    public long getId_domicilio() {
+    public int getId_domicilio() {
         return id_domicilio;
     }
 

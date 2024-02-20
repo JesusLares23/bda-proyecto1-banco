@@ -7,6 +7,7 @@ package dtos;
  */
 public class DomicilioDTO {
     
+    private int id_domicilio;
     private String calle;
     private String colonia;
     private String numero_exterior;

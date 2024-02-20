@@ -45,7 +45,7 @@
                               </Group>
                               <Component id="txtColonia" max="32767" attributes="0"/>
                               <Component id="txtNombres" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtApellidos" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtApellidoPaterno" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtApellidoMaterno" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -64,7 +64,7 @@
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       <Component id="txtNombres" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtApellidos" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtApellidoPaterno" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtApellidoMaterno" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -105,7 +105,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNombresActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtApellidos">
+    <Component class="javax.swing.JTextField" name="txtApellidoPaterno">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">

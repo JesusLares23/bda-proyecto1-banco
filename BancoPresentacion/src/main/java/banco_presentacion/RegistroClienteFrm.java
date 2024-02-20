@@ -1,16 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package banco_presentacion;
 
+import bancodominio.Cliente;
 import bancodominio.Domicilio;
+import conexion.IConexionBD;
 import controlador_negocio.ControladorNegocio;
+import daos.DomicilioDAO;
+import daos.IDomicilioDAO;
+import dtos.ClienteDTO;
 import dtos.DomicilioDTO;
+import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
 
 /**
- *
- * @author darkm
+ * 
+ * @author Jesús Pedro Lares Valencia - 00000233383
  */
 public class RegistroClienteFrm extends javax.swing.JFrame {
 
@@ -38,7 +42,7 @@ public class RegistroClienteFrm extends javax.swing.JFrame {
     private void initComponents() {
 
         txtNombres = new javax.swing.JTextField();
-        txtApellidos = new javax.swing.JTextField();
+        txtApellidoPaterno = new javax.swing.JTextField();
         txtCalle = new javax.swing.JTextField();
         txtApellidoMaterno = new javax.swing.JTextField();
         dpFechaNacimiento = new com.github.lgooddatepicker.components.DatePicker();
@@ -57,7 +61,7 @@ public class RegistroClienteFrm extends javax.swing.JFrame {
             }
         });
 
-        txtApellidos.setBorder(javax.swing.BorderFactory.createTitledBorder("Apellido Paterno"));
+        txtApellidoPaterno.setBorder(javax.swing.BorderFactory.createTitledBorder("Apellido Paterno"));
 
         txtCalle.setBorder(javax.swing.BorderFactory.createTitledBorder("Calle"));
 
@@ -106,7 +110,7 @@ public class RegistroClienteFrm extends javax.swing.JFrame {
                                     .addComponent(txtNumExterior, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
                                 .addComponent(txtColonia)
                                 .addComponent(txtNombres, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtApellidos, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtApellidoPaterno, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtApellidoMaterno, javax.swing.GroupLayout.Alignment.LEADING)))
                         .addGap(18, 18, 18)
                         .addComponent(filler1, javax.swing.GroupLayout.DEFAULT_SIZE, 9, Short.MAX_VALUE))))
@@ -119,7 +123,7 @@ public class RegistroClienteFrm extends javax.swing.JFrame {
                         .addGap(19, 19, 19)
                         .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtApellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtApellidoMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -148,6 +152,35 @@ public class RegistroClienteFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombresActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            DomicilioDTO nuevoDomicilio = new DomicilioDTO(
+                    txtCalle.getText(),
+                    txtColonia.getText(),
+                    txtNumExterior.getText()
+                );
+ 
+            ClienteDTO nuevoCliente = new ClienteDTO(
+                    txtNombres.getText(),
+                    txtApellidoPaterno.getText(),
+                    txtApellidoMaterno.getText(),
+                    formatoFecha.format(dpFechaNacimiento.getDate())
+                );
+            
+                        
+            Cliente clienteAgregado = controladorNegocio.agregarCliente(nuevoCliente);
+
+            if (clienteAgregado != null) {
+                JOptionPane.showMessageDialog(null, "Cliente registrado correctamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo registrar al cliente.", 
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+             e.printStackTrace();
+             JOptionPane.showMessageDialog(this, "Error al agregar el cliente: " 
+                     + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -199,7 +232,7 @@ public class RegistroClienteFrm extends javax.swing.JFrame {
     private com.github.lgooddatepicker.components.DatePicker dpFechaNacimiento;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JTextField txtApellidoMaterno;
-    private javax.swing.JTextField txtApellidos;
+    private javax.swing.JTextField txtApellidoPaterno;
     private javax.swing.JTextField txtCalle;
     private javax.swing.JTextField txtColonia;
     private javax.swing.JTextField txtNombres;
