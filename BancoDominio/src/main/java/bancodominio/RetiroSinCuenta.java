@@ -7,8 +7,8 @@ package bancodominio;
  */
 public class RetiroSinCuenta {
     private int id_retiro;
-    private Cuenta id_cuenta_origen;
-    private String folio;
+    private int id_cuenta_origen;
+    private int folio;
     private String contra;
     private float monto;
     private String fecha;
@@ -17,7 +17,7 @@ public class RetiroSinCuenta {
     public RetiroSinCuenta() {
     }
 
-    public RetiroSinCuenta(Cuenta id_cuenta_origen, String folio, String contra, 
+    public RetiroSinCuenta(int id_cuenta_origen, int folio, String contra, 
             float monto, String fecha, boolean cobrado) {
         this.id_cuenta_origen = id_cuenta_origen;
         this.folio = folio;
@@ -27,7 +27,7 @@ public class RetiroSinCuenta {
         this.cobrado = cobrado;
     }
 
-    public RetiroSinCuenta(int id_retiro, Cuenta id_cuenta_origen, String folio, 
+    public RetiroSinCuenta(int id_retiro, int id_cuenta_origen, int folio, 
             String contra, float monto, String fecha, boolean cobrado) {
         this.id_retiro = id_retiro;
         this.id_cuenta_origen = id_cuenta_origen;
@@ -45,17 +45,17 @@ public class RetiroSinCuenta {
         this.id_retiro = id_retiro;
     }
 
-    public Cuenta getId_cuenta_origen() {
+    public int getId_cuenta_origen() {
         return id_cuenta_origen;
     }
-    public void setId_cuenta_origen(Cuenta id_cuenta_origen) {
+    public void setId_cuenta_origen(int id_cuenta_origen) {
         this.id_cuenta_origen = id_cuenta_origen;
     }
 
-    public String getFolio() {
+    public int getFolio() {
         return folio;
     }
-    public void setFolio(String folio) {
+    public void setFolio(int folio) {
         this.folio = folio;
     }
 

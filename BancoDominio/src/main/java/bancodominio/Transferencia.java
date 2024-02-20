@@ -8,15 +8,15 @@ package bancodominio;
 public class Transferencia {
     // Clase POJO de Domicilios
     private int id_transferencia;
-    private Cuenta id_cuenta_origen;
-    private Cuenta id_cuenta_destino;
+    private int id_cuenta_origen;
+    private int id_cuenta_destino;
     private float monto;
     private String fecha;
 
     public Transferencia() {
     }
 
-    public Transferencia(Cuenta id_cuenta_origen, Cuenta id_cuenta_destino, 
+    public Transferencia(int id_cuenta_origen, int id_cuenta_destino, 
             float monto, String fecha) {
         this.id_cuenta_origen = id_cuenta_origen;
         this.id_cuenta_destino = id_cuenta_destino;
@@ -24,8 +24,8 @@ public class Transferencia {
         this.fecha = fecha;
     }
 
-    public Transferencia(int id_transferencia, Cuenta id_cuenta_origen, 
-            Cuenta id_cuenta_destino, float monto, String fecha) {
+    public Transferencia(int id_transferencia, int id_cuenta_origen, 
+            int id_cuenta_destino, float monto, String fecha) {
         this.id_transferencia = id_transferencia;
         this.id_cuenta_origen = id_cuenta_origen;
         this.id_cuenta_destino = id_cuenta_destino;
@@ -40,17 +40,17 @@ public class Transferencia {
         this.id_transferencia = id_transferencia;
     }
 
-    public Cuenta getId_cuenta_origen() {
+    public int getId_cuenta_origen() {
         return id_cuenta_origen;
     }
-    public void setId_cuenta_origen(Cuenta id_cuenta_origen) {
+    public void setId_cuenta_origen(int id_cuenta_origen) {
         this.id_cuenta_origen = id_cuenta_origen;
     }
 
-    public Cuenta getId_cuenta_destino() {
+    public int getId_cuenta_destino() {
         return id_cuenta_destino;
     }
-    public void setId_cuenta_destino(Cuenta id_cuenta_destino) {
+    public void setId_cuenta_destino(int id_cuenta_destino) {
         this.id_cuenta_destino = id_cuenta_destino;
     }
 

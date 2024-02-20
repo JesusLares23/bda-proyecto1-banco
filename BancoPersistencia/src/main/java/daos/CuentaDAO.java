@@ -32,8 +32,8 @@ public class CuentaDAO implements ICuentaDAO {
     @Override
     public Cuenta agregarCuenta(CuentaDTO cuenta) throws PersistenciaException {
         String sentenciaSQL = "INSERT INTO Cuentas (num_cuenta, apertura, "
-                + "saldo, estado, id_cliente) "
-                + "VALUES (?,?,?,?,?)";
+                + "saldo, contra, estado, id_cliente) "
+                + "VALUES (?,?,?,?,?,?)";
         
         try (
                 Connection conexion = this.conexionBD.crearConexion();
@@ -43,8 +43,9 @@ public class CuentaDAO implements ICuentaDAO {
             comandoSQL.setInt(1, cuenta.getNum_cuenta());
             comandoSQL.setString(2, cuenta.getApertura());
             comandoSQL.setFloat(3, cuenta.getSaldo());
-            comandoSQL.setString(4, cuenta.getEstado());
-            comandoSQL.setInt(5, cuenta.getId_cliente());
+            comandoSQL.setString(4, cuenta.getContra());
+            comandoSQL.setString(5, cuenta.getEstado());
+            comandoSQL.setInt(6, cuenta.getId_cliente());
             
             int registrosModificados = comandoSQL.executeUpdate();
             LOG.log(Level.INFO, "Se agregaron con exito {0}", 
@@ -58,6 +59,7 @@ public class CuentaDAO implements ICuentaDAO {
                     cuenta.getNum_cuenta(),
                     cuenta.getApertura(),
                     cuenta.getSaldo(),
+                    cuenta.getContra(),
                     cuenta.getEstado(),
                     cuenta.getId_cliente()
                 );
@@ -72,7 +74,7 @@ public class CuentaDAO implements ICuentaDAO {
     @Override
     public Cuenta actualizar(Cuenta cuenta) throws PersistenciaException {
         String sentenciaSQL = "UPDATE Cuentas SET numero_cuenta = ?, fecha_apertura = ?, "
-                + "saldo = ?, estado = ?, id_cliente = ? "
+                + "saldo = ?, contra = ?, estado = ?, id_cliente = ? "
                 + "WHERE id_cuenta = ?";
         
         try (
@@ -83,9 +85,10 @@ public class CuentaDAO implements ICuentaDAO {
             comandoSQL.setInt(1, cuenta.getNum_cuenta());
             comandoSQL.setString(2, cuenta.getApertura());
             comandoSQL.setFloat(3, cuenta.getSaldo());
-            comandoSQL.setString(4, cuenta.getEstado());
-            comandoSQL.setInt(5, cuenta.getId_cliente());
-            comandoSQL.setInt(6, cuenta.getId_cuenta());
+            comandoSQL.setString(4, cuenta.getContra());
+            comandoSQL.setString(5, cuenta.getEstado());
+            comandoSQL.setInt(6, cuenta.getId_cliente());
+            comandoSQL.setInt(7, cuenta.getId_cuenta());
                     
             int registrosModificados = comandoSQL.executeUpdate();
             LOG.log(Level.INFO, "Se actualizó con éxito {0} ", registrosModificados);
@@ -117,7 +120,8 @@ public class CuentaDAO implements ICuentaDAO {
                     resultado.getString(3),
                     resultado.getFloat(4),
                     resultado.getString(5),
-                    resultado.getInt(6)
+                    resultado.getString(6),
+                    resultado.getInt(7)
             );
             
             return cuentaConsultada;
@@ -144,10 +148,11 @@ public class CuentaDAO implements ICuentaDAO {
                 int num_cuenta = resultado.getInt("numero_cuenta");
                 String fecha_apertura = resultado.getString("fecha_apertura");
                 float saldo = resultado.getFloat("saldo");
+                String contra = resultado.getString("contra");
                 String estado = resultado.getString("estado");
                 int id_cliente = resultado.getInt("id_cliente");
-                Cuenta cuenta = new Cuenta(id_cuenta, num_cuenta, fecha_apertura, saldo, estado, 
-                        id_cliente);
+                Cuenta cuenta = new Cuenta(id_cuenta, num_cuenta, estado, 
+                        saldo, estado, estado, id_cliente);
                 listaCuentas.add(cuenta); 
             }
             LOG.log(Level.INFO, "Se encontraron {0} cuentas ", 

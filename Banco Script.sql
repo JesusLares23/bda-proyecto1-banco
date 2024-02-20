@@ -29,6 +29,7 @@ CREATE TABLE Cuentas (
   numero_cuenta BIGINT,
   fecha_apertura DATE,
   saldo DECIMAL(10,2),
+  contra VARCHAR(200),
   estado ENUM('Abierta', 'Cancelada'),
   id_cliente BIGINT NOT NULL,
   FOREIGN KEY (id_cliente) 
@@ -43,20 +44,20 @@ CREATE TABLE Transferencias (
   monto DECIMAL(10,2),
   fecha DATETIME,
   FOREIGN KEY (id_cuenta_origen) 
-	REFERENCES cuentas (numero_cuenta),
+	REFERENCES cuentas (id_cuenta),
   FOREIGN KEY (id_cuenta_destino) 
-	REFERENCES cuentas (numero_cuenta)
+	REFERENCES cuentas (id_cuenta)
 );
 
 -- Tabla para los retiros sin cuenta
 CREATE TABLE Retiros (
   id_retiro BIGINT PRIMARY KEY AUTO_INCREMENT, 
-  numero_cuenta BIGINT,
-  folio VARCHAR(10),
+  id_cuenta_origen BIGINT,
+  folio VARCHAR(10) AUTO_INCREMENT,
   contrasena VARCHAR(8),
   monto DECIMAL(10,2),
   fecha DATETIME,
   cobrado BOOLEAN, -- Indica si ya fue cobrado o no
-  FOREIGN KEY (numero_cuenta) 
-	REFERENCES cuentas (numero_cuenta)
+  FOREIGN KEY (id_cuenta_origen) 
+	REFERENCES cuentas (id_cuenta)
 );

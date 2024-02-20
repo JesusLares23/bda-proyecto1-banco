@@ -9,6 +9,7 @@ public class CuentaDTO {
     private int num_cuenta;
     private String apertura;
     private float saldo;
+    private String contra;
     private String estado;
     private int id_cliente;
     
@@ -21,11 +22,12 @@ public class CuentaDTO {
     public CuentaDTO() {
     }
 
-    public CuentaDTO(int num_cuenta, String apertura, float saldo, String estado, 
-            int id_cliente) {
+    public CuentaDTO(int num_cuenta, String apertura, float saldo, String contra, 
+            String estado, int id_cliente) {
         this.num_cuenta = num_cuenta;
         this.apertura = apertura;
         this.saldo = saldo;
+        this.contra = contra;
         this.estado = estado;
         this.id_cliente = id_cliente;
     }
@@ -49,6 +51,13 @@ public class CuentaDTO {
     }
     public void setSaldo(float saldo) {
         this.saldo = saldo;
+    }
+
+    public String getContra() {
+        return contra;
+    }
+    public void setContra(String contra) {
+        this.contra = contra;
     }
 
     public String getEstado() {
